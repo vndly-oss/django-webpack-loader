@@ -215,6 +215,31 @@ INSTALLED_APPS = (
 <br>
 
 
+### Webpack Optimized Chunks
+
+Only supported if you also use fork: timkindberg/webpack-bundle-tracker
+
+Support for default webpack chunk optimizations is supported. The most basic way to enable optimized chunks is to add the
+`optimize` section to your webpack config.
+
+```js
+// webpack.config.js
+{
+  ...below plugins
+  
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    }
+  }
+}
+```
+
+Then when you render multiple entries on a single page, use comma-separated bundle names:
+```jinja2
+{% render_bundle 'bundleA,bundleB' %}
+```
+
 ### Multiple webpack projects
 
 Version 2.0 and up of webpack loader also supports multiple webpack configurations. The following configuration defines 2 webpack stats files in settings and uses the `config` argument in the template tags to influence which stats file to load the bundles from.
