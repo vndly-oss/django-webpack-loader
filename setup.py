@@ -14,7 +14,15 @@ with open(rel('webpack_loader', '__init__.py')) as handler:
     INIT_PY = handler.read()
 
 
-VERSION = re.findall("__version__ = '([^']+)'", INIT_PY)[0]
+def get_version(filename):
+  path = os.path.join(os.path.dirname(__file__), filename)
+  with open(path, encoding="utf-8") as handle:
+    content = handle.read()
+  return re.search(r'__version__ = "([^"]+)"', content).group(1)
+
+
+VERSION = get_version('webpack_loader/__init__.py')
+
 
 setup(
   name = 'django-webpack-loader',
